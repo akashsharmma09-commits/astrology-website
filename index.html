@@ -135,16 +135,27 @@ document.getElementById("astroForm").addEventListener("submit", async function (
         });
 
         const data = await response.json();
+if (data.success) {
+    const formattedReport = data.report
+        .replace(/\n/g, "<br><br>")
+        .replace(/•/g, "<br>• ");
 
-        if (data.success) {
-            resultBox.innerHTML = `
-                <h2>Your Report</h2>
-                <p>${data.report}</p>
-            `;
-        } else {
-            resultBox.innerHTML = `Server Error: ${data.error}`;
-        }
-
+    resultBox.innerHTML = `
+        <h2 style="margin-bottom:15px;">Your Full Astrology Report</h2>
+        <div style="
+            background:#fff;
+            padding:20px;
+            border-radius:12px;
+            line-height:1.8;
+            font-size:16px;
+            color:#333;
+        ">
+            ${formattedReport}
+        </div>
+    `;
+} else {
+    resultBox.innerHTML = `Server Error: ${data.error}`;
+}
     } catch (error) {
         resultBox.innerHTML = `Error: ${error.message}`;
     }
