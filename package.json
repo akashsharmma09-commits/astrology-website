@@ -1,0 +1,14 @@
+{
+  "name": "astrology-career-wealth-api",
+  "version": "1.0.0",
+  "description": "Vedic Astrology Career and Wealth Forecast Backend",
+  "main": "server-nodejs-claude-backend.js",
+  "scripts": {
+    "start": "node server-nodejs-claude-backend.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2"
+  }
+}
