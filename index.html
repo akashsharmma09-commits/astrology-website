@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astrology Report Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      width: 100%;
+      max-width: 700px;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: black;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 14px;
+      background: #fafafa;
+      border: 1px solid #eee;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .loading {
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Astrology Report Generator</h1>
+    <p class="subtitle">Get your Career, Wealth, Marriage & Life Forecast</p>
+
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="name" placeholder="Enter your full name" />
+    </div>
+
+    <div class="form-group">
+      <label>Date of Birth</label>
+      <input type="text" id="dob" placeholder="DD/MM/YYYY" />
+    </div>
+
+    <div class="form-group">
+      <label>Time of Birth</label>
+      <input type="text" id="tob" placeholder="HH:MM AM/PM" />
+    </div>
+
+    <div class="form-group">
+      <label>Place of Birth</label>
+      <input type="text" id="pob" placeholder="City, State, Country" />
+    </div>
+
+    <button onclick="generateReport()">Generate Full Astrology Report</button>
+
+    <div class="loading" id="loading">Generating report...</div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    async function generateReport() {
+      const name = document.getElementById('name').value;
+      const dob = document.getElementById('dob').value;
+      const tob = document.getElementById('tob').value;
+      const pob = document.getElementById('pob').value;
+
+      if (!name || !dob || !tob || !pob) {
+        alert('Please fill all fields');
+        return;
+      }
+
+      const loading = document.getElementById('loading');
+      const result = document.getElementById('result');
+
+      loading.style.display = 'block';
+      result.style.display = 'none';
+
+      const prompt = `Create a detailed Vedic astrology report for:\nName: ${name}\nDOB: ${dob}\nTime of Birth: ${tob}\nPlace of Birth: ${pob}\nFocus: Career, Wealth, Marriage, Health, Remedies and 5-Year Forecast.`;
+
+      try {
+        const response = await fetch('https://astrology-website-7839.onrender.com/api/astrology', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ prompt })
+        });
+
+        const data = await response.json();
+
+        loading.style.display = 'none';
+        result.style.display = 'block';
+
+        if (data.success) {
+          result.innerText = data.report;
+        } else {
+          result.innerText = 'Error: ' + data.message;
+        }
+      } catch (error) {
+        loading.style.display = 'none';
+        result.style.display = 'block';
+        result.innerText = 'Server Error: ' + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
