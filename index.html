@@ -1,17 +1,114 @@
-```html
-<form id="astroForm">
-    <input type="text" id="fullName" placeholder="Full Name" required>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrology Report Generator</title>
 
-    <input type="date" id="dob" required>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-    <input type="time" id="tob" required>
+        body {
+            background: #f5f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    <input type="text" id="pob" placeholder="Place of Birth" required>
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 700px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
 
-    <button type="submit">Generate Report</button>
-</form>
+        h1 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 32px;
+        }
 
-<div id="result"></div>
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 30px;
+            padding: 16px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            background: #fafafa;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Astrology Report Generator</h1>
+    <p class="subtitle">Get your Career, Wealth, Marriage & Life Forecast</p>
+
+    <form id="astroForm">
+        <label>Full Name</label>
+        <input type="text" id="fullName" placeholder="Enter your full name" required>
+
+        <label>Date of Birth</label>
+        <input type="date" id="dob" required>
+
+        <label>Time of Birth</label>
+        <input type="time" id="tob" required>
+
+        <label>Place of Birth</label>
+        <input type="text" id="pob" placeholder="Enter birth place" required>
+
+        <button type="submit">Generate Full Astrology Report</button>
+    </form>
+
+    <div id="result"></div>
+</div>
 
 <script>
 document.getElementById("astroForm").addEventListener("submit", async function (e) {
@@ -26,7 +123,7 @@ document.getElementById("astroForm").addEventListener("submit", async function (
         pob: document.getElementById("pob").value
     };
 
-    resultBox.innerHTML = "Generating report...";
+    resultBox.innerHTML = "Generating your astrology report...";
 
     try {
         const response = await fetch("https://astrology-website-7839.onrender.com/generate-report", {
@@ -40,9 +137,12 @@ document.getElementById("astroForm").addEventListener("submit", async function (
         const data = await response.json();
 
         if (data.success) {
-            resultBox.innerHTML = `<h3>Your Report</h3><p>${data.report}</p>`;
+            resultBox.innerHTML = `
+                <h2>Your Report</h2>
+                <p>${data.report}</p>
+            `;
         } else {
-            resultBox.innerHTML = `Error: ${data.error}`;
+            resultBox.innerHTML = `Server Error: ${data.error}`;
         }
 
     } catch (error) {
@@ -50,4 +150,7 @@ document.getElementById("astroForm").addEventListener("submit", async function (
     }
 });
 </script>
+
+</body>
+</html>
 ```
