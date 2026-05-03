@@ -147,10 +147,11 @@
       const prompt = `Create a detailed Vedic astrology report for:\nName: ${name}\nDOB: ${dob}\nTime of Birth: ${tob}\nPlace of Birth: ${pob}\nFocus: Career, Wealth, Marriage, Health, Remedies and 5-Year Forecast.`;
 
       try {
-        const response = await fetch('https://astrology-website-7839.onrender.com/api/astrology', {
-          method: 'POST',
-          headers: {
+    const response = await fetch('https://astrology-website-7839.onrender.com/generate-report', {
+        method: 'POST',
+        headers: {
             'Content-Type': 'application/json'
+        },
           },
           body: JSON.stringify({ prompt })
         });
