@@ -22,54 +22,54 @@ app.get("/api", (req, res) => {
     message: "Astrology API is running successfully"
   });
 });
-
 app.post("/generate-report", (req, res) => {
-  const { fullName } = req.body;
+  const { fullName, dob, tob, pob } = req.body;
 
-  res.json({
-    success: true,
-    report: `
+  const report = `
 FULL PREMIUM ASTROLOGY REPORT FOR ${fullName}
+
+━━━━━━━━━━━━━━━━━━
+BIRTH DETAILS
+━━━━━━━━━━━━━━━━━━
+
+Name: ${fullName}
+Date of Birth: ${dob}
+Time of Birth: ${tob}
+Place of Birth: ${pob}
 
 ━━━━━━━━━━━━━━━━━━
 CAREER PREDICTION
 ━━━━━━━━━━━━━━━━━━
 
-2026 se career me strong growth dikh rahi hai.
-Promotion ke yog strong hain.
-Job switch beneficial ho sakta hai.
+Your horoscope shows strong leadership qualities.
+Career growth becomes stronger after age 28.
+Business, management, and leadership roles are highly favorable.
 
 ━━━━━━━━━━━━━━━━━━
 WEALTH PREDICTION
 ━━━━━━━━━━━━━━━━━━
 
-Financial stability improve hogi.
-Property investment beneficial ho sakta hai.
+Financial stability improves steadily.
+Long-term investments and property gains are strong.
 
 ━━━━━━━━━━━━━━━━━━
 MARRIAGE PREDICTION
 ━━━━━━━━━━━━━━━━━━
 
-Marriage stable aur positive rahegi.
-Partner supportive nature ka hoga.
+Marriage may happen after emotional maturity.
+Partner will be supportive and practical in nature.
 
 ━━━━━━━━━━━━━━━━━━
 LOVE LIFE
 ━━━━━━━━━━━━━━━━━━
 
-2026–2027 strong relationship period hai.
+Strong emotional bonding period starts after major life stability.
 
 ━━━━━━━━━━━━━━━━━━
 HEALTH PREDICTION
 ━━━━━━━━━━━━━━━━━━
 
-Stress management aur sleep pe focus karein.
-
-━━━━━━━━━━━━━━━━━━
-FOREIGN SETTLEMENT
-━━━━━━━━━━━━━━━━━━
-
-Foreign travel aur career opportunities strong hain.
+Focus on stress management, sleep balance, and daily routine.
 
 ━━━━━━━━━━━━━━━━━━
 LUCKY FACTORS
@@ -96,7 +96,11 @@ REMEDIES
 2028 → Relationship stability
 2029 → Property gains
 2030 → Financial success
-`
+`;
+
+  res.json({
+    success: true,
+    report: report
   });
 });
 
