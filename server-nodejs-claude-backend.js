@@ -1,44 +1,105 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
+app.post("/generate-report", (req, res) => {
+  const { fullName, dob, timeOfBirth, placeOfBirth } = req.body;
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+  res.json({
+    success: true,
+    report: `
+FULL PREMIUM ASTROLOGY REPORT FOR ${fullName}
 
-app.use(cors());
-app.use(express.json());
+━━━━━━━━━━━━━━━━━━
+CAREER PREDICTION
+━━━━━━━━━━━━━━━━━━
 
-// Serve frontend index.html
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
+2026 se career me strong growth dikh rahi hai.
+Promotion ke yog strong hain.
+Government, IT, Business, Management aur Consultancy fields favorable rahengi.
+Job switch 2026–2027 me beneficial ho sakta hai.
 
-app.post('/api/astrology', async (req, res) => {
-  try {
-    const { prompt } = req.body;
+━━━━━━━━━━━━━━━━━━
+WEALTH PREDICTION
+━━━━━━━━━━━━━━━━━━
 
-    if (!prompt) {
-      return res.status(400).json({
-        success: false,
-        message: 'Prompt is required'
-      });
-    }
+Financial stability gradually improve hogi.
+Property investment beneficial ho sakta hai.
+Risky investment avoid karein.
+2027 ke baad strong financial uplift possible hai.
 
-    // Demo response (free version)
-    res.json({
-      success: true,
-      report: `Detailed Astrology Report:\n\nCareer: Strong growth from 2026 onward. Promotion chances are high.\n\nWealth: Financial stability improves gradually. Avoid risky investments.\n\nMarriage: Positive relationship phase ahead. Communication is important.\n\nHealth: Focus on stress management and routine health care.\n\nRemedies: Chant Gayatri Mantra daily and wear clean yellow on Thursdays.\n\n5-Year Forecast: 2026–2030 shows steady progress with better income and career stability.`
-    });
+━━━━━━━━━━━━━━━━━━
+MARRIAGE PREDICTION
+━━━━━━━━━━━━━━━━━━
 
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-});
+Marriage life positive rahegi.
+Delay ho sakta hai but stable relationship banega.
+Communication strong rakhna important hai.
+Partner supportive aur practical nature ka ho sakta hai.
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+━━━━━━━━━━━━━━━━━━
+LOVE LIFE
+━━━━━━━━━━━━━━━━━━
+
+Emotional attachment strong rahega.
+Past relationship lessons future me kaam aayenge.
+2026–2027 strong relationship period hai.
+
+━━━━━━━━━━━━━━━━━━
+HEALTH PREDICTION
+━━━━━━━━━━━━━━━━━━
+
+Stress management zaroori hai.
+Sleep cycle improve karein.
+Routine health check helpful rahega.
+Digestive health aur mental peace pe focus karein.
+
+━━━━━━━━━━━━━━━━━━
+FOREIGN SETTLEMENT
+━━━━━━━━━━━━━━━━━━
+
+Foreign travel ke yog present hain.
+Career related foreign opportunities mil sakti hain.
+2026–2028 period especially favorable hai.
+
+━━━━━━━━━━━━━━━━━━
+BUSINESS PREDICTION
+━━━━━━━━━━━━━━━━━━
+
+Partnership carefully choose karein.
+Independent business zyada successful rahega.
+Digital, consultancy aur online work profitable ho sakta hai.
+
+━━━━━━━━━━━━━━━━━━
+LUCKY FACTORS
+━━━━━━━━━━━━━━━━━━
+
+Lucky Number: 3, 5, 9
+Lucky Color: Yellow, White
+Lucky Day: Thursday, Sunday
+Lucky Direction: East
+
+━━━━━━━━━━━━━━━━━━
+REMEDIES
+━━━━━━━━━━━━━━━━━━
+
+• Gayatri Mantra daily 108 times
+• Thursday ko yellow daan
+• Surya ko jal chadhayein
+• Hanuman Chalisa Tuesday ko
+• Clean yellow sapphire after consultation
+
+━━━━━━━━━━━━━━━━━━
+5 YEAR FORECAST
+━━━━━━━━━━━━━━━━━━
+
+2026 → Career rise  
+2027 → Wealth improvement  
+2028 → Relationship stability  
+2029 → Property gains  
+2030 → Strong financial success
+
+Overall life progress positive and stable dikh rahi hai.
+
+━━━━━━━━━━━━━━━━━━
+END OF REPORT
+━━━━━━━━━━━━━━━━━━
+`
+  });
 });
